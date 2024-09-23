@@ -1,0 +1,100 @@
+{
+  "dates": {
+    "23/09/2024": {
+      "location": "שופרסל שלי אבן גבירול, ת״א",
+      "products": [
+        {
+          "id": 1,
+          "productName": "קוטג׳ 5% תנובה, 250 גרם",
+          "imageUrl": "images/cottage.jpg",
+          "minPrice": "3.20",
+          "maxPrice": "9.00",
+          "productPrice": "5.90"
+        },
+        {
+          "id": 2,
+          "productName": "פיתות תנעמי, 10 יחידות",
+          "imageUrl": "images/pita.jpg",
+          "minPrice": "8.90",
+          "maxPrice": "16.90",
+          "productPrice": "12.90"
+        },
+        {
+          "id": 3,
+          "productName": "רסק עגבניות, יכין, 100 גרם",
+          "imageUrl": "images/tomatopaste.jpg",
+          "minPrice": "1.90",
+          "maxPrice": "4.50",
+          "productPrice": "3.30"
+        },
+        {
+          "id": 4,
+          "productName": "גבינה צהובה 28% שופרסל, 200 גרם",
+          "imageUrl": "images/yellowcheese28.jpg",
+          "minPrice": "3.90",
+          "maxPrice": "8.90",
+          "productPrice": "6.80"
+        }
+      ],
+      "meals": [
+        {
+          "id": 1,
+          "mealName": "פיצה פיתה",
+          "products": [2, 3, 4]
+        }
+      ]
+    },
+    "24/09/2024": {
+      "location": "רמי לוי שיווק השקמה, בני-ברק",
+      "products": [
+        {
+          "id": 1,
+          "productName": "חלה קלועה אנג׳ל, 650 גרם",
+          "imageUrl": "images/challah.jpg",
+          "minPrice": "5.00",
+          "maxPrice": "8.00",
+          "productPrice": "5.50"
+        },
+        {
+          "id": 2,
+          "productName": "עגבניה, 2 ק״ג",
+          "imageUrl": "images/tomato.jpg",
+          "minPrice": "8.00",
+          "maxPrice": "23.80",
+          "productPrice": "9.80"
+        },
+        {
+          "id": 3,
+          "productName": "שום יבש, חבילה",
+          "imageUrl": "images/garlic.jpg",
+          "minPrice": "3.90",
+          "maxPrice": "7.90",
+          "productPrice": "4.90"
+        },
+        {
+          "id": 4,
+          "productName": "שמן קנולה עץ הזית, 1 ליטר",
+          "imageUrl": "images/canolaoil.jpg",
+          "minPrice": "9.90",
+          "maxPrice": "18.90",
+          "productPrice": "12.90"
+        },
+        {
+          "id": 5,
+          "productName": "פלפל חריף ירוק, 100 גרם",
+          "imageUrl": "images/greenpepper.jpg",
+          "minPrice": "0.50",
+          "maxPrice": "1.00",
+          "productPrice": "0.80"
+        }
+      ],
+      "meals": [
+        {
+          "id": 1,
+          "mealName": "מטבוחה ביתית",
+          "products": [2, 3, 4, 5]
+        }
+      ]
+    }
+  }
+}

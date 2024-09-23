@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>כמה עולה?</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <!-- CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Title and subtitle -->
+        <h1 id="product-title">טוען...</h1>
+        <h3 id="product-subtitle"></h3>
+
+        <!-- Product image -->
+        <img id="product-image" src="images/placeholder.png" alt="טוען..." class="product-image">
+
+        <!-- Dots container -->
+        <div id="dots-container" class="dots-container"></div>
+
+        <!-- Slider container -->
+        <div class="slider-container">
+            <input type="range" id="price-slider" min="0" max="100" value="50" step="1">
+        </div>
+
+        <!-- Confirm button -->
+        <a id="confirm-button" href="end.html" class="price-button">זה עולה <span id="button-price">₪0<span class="agorot">00</span></span></a>
+    </div>
+
+    <footer>
+        <!-- Footer text will be dynamically inserted by JavaScript -->
+    </footer>
+
+    <!-- Include common.js and game.js -->
+    <script src="common.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

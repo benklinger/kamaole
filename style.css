@@ -1,0 +1,262 @@
+body {
+    background-color: white;
+    font-family: 'Rubik', sans-serif;
+    direction: rtl;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 80px; /* To prevent overlap with footer */
+}
+
+h1, h3 {
+    text-align: center; /* Center the titles only */
+}
+
+h1 {
+    color: green;
+    margin-top: 20px;
+}
+
+h3 {
+    color: black;
+    margin-bottom: 50px;
+}
+
+/* Options */
+.option-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 15px 0;
+    border: 3px solid #f4f4f4;
+    background-color: white;
+    color: black;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 10px; /* Rounded corners */
+}
+
+.option-button:hover {
+    border-color: green;
+	background-color: #2F872A;
+	color: white;
+}
+
+.option-button .option-title {
+    font-size: 20px; /* Larger font size */
+    font-weight: bold; /* Bold font weight */
+    text-align: right; /* Align text to the right */
+}
+
+.option-button .option-subtitle {
+    font-size: 14px; /* Smaller font size */
+    font-weight: normal; /* Normal font weight */
+    margin-top: 5px;
+    text-align: right; /* Corrected alignment */
+}
+
+/* Footer adjustments */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 14px;
+    color: gray;
+    text-align: center;
+    background-color: white;
+    padding: 10px 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Meal Title or Product Title */
+#product-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: green;
+    margin: 10px 0 5px 0;
+}
+
+/* Product Subtitle */
+#product-subtitle {
+    font-size: 24px;
+    font-weight: normal;
+    color: #333;
+    margin: 0 0 15px 0;
+}
+
+/* Product Image */
+.product-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 10px; /* Spacing below image */
+    cursor: pointer; /* Indicate that the image is clickable */
+}
+
+/* Dots Container */
+.dots-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Dot Styles */
+.dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot:hover {
+    background-color: #999;
+}
+
+.dot.active {
+    background-color: #717171;
+}
+
+/* Slider Container */
+.slider-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px 0; /* Added top and bottom padding */
+}
+
+#price-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    background: #ddd;
+    outline: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: background 0.3s ease;
+}
+
+#price-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    background: green;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#price-slider::-webkit-slider-thumb:active {
+    transform: scale(1.1);
+}
+
+#price-slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: green;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#price-slider::-moz-range-thumb:active {
+    transform: scale(1.1);
+}
+
+#price-slider:hover::-webkit-slider-thumb {
+    background: darkgreen;
+}
+
+#price-slider:hover::-moz-range-thumb {
+    background: darkgreen;
+}
+
+/* Confirm Button */
+#confirm-button {
+    display: block;
+    width: 80%;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: green;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+}
+
+#confirm-button .agorot {
+    font-size: 50%; /* Smaller font size for agorot */
+    vertical-align: top;
+    margin-top: -0.6em; /* Adjust as needed for alignment */
+    margin-left: 2px;
+}
+
+#confirm-button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+/* Fade Animations */
+.fade-in {
+    animation: fadeIn 0.3s forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Footer */
+footer {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.agorot {
+    font-size: 0.6em;
+    vertical-align: super;
+}
+
+.correct {
+    color: green; /* Indicates a correct guess */
+}
+
+.error-message {
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.no-yesterday-game {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1em;
+    color: gray;
+}
