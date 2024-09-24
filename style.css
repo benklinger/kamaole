@@ -5,7 +5,7 @@ body {
 }
 
 .container {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     padding-bottom: 80px; /* To prevent overlap with footer */
 }
@@ -15,27 +15,32 @@ h1, h3 {
 }
 
 h1 {
+    font-size: 1.6em;
     color: green;
     margin-top: 20px;
+	margin-bottom:10px;
 }
 
 h3 {
+    font-size: 1.2em;
     color: black;
-    margin-bottom: 50px;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 /* Options */
 .option-button {
     display: block;
-    width: 100%;
+    width: 90%;
     padding: 15px;
     margin: 15px 0;
     border: 3px solid #f4f4f4;
     background-color: white;
     color: black;
-    font-size: 18px;
+    font-size: 1.1em;
     text-decoration: none;
     border-radius: 10px; /* Rounded corners */
+    text-align: right; /* Align text to the right */
 }
 
 .option-button:hover {
@@ -47,14 +52,12 @@ h3 {
 .option-button .option-title {
     font-size: 20px; /* Larger font size */
     font-weight: bold; /* Bold font weight */
-    text-align: right; /* Align text to the right */
 }
 
 .option-button .option-subtitle {
     font-size: 14px; /* Smaller font size */
     font-weight: normal; /* Normal font weight */
     margin-top: 5px;
-    text-align: right; /* Corrected alignment */
 }
 
 /* Footer adjustments */
@@ -79,7 +82,7 @@ footer {
 
 /* Meal Title or Product Title */
 #product-title {
-    font-size: 28px;
+    font-size: 1.6em;
     font-weight: bold;
     color: green;
     margin: 10px 0 5px 0;
@@ -87,7 +90,7 @@ footer {
 
 /* Product Subtitle */
 #product-subtitle {
-    font-size: 24px;
+    font-size: 1.2em;
     font-weight: normal;
     color: #333;
     margin: 0 0 15px 0;
