@@ -131,6 +131,66 @@
 	          "products": [2, 3]
 	        }
 	      ]
-	    }
+	    },
+			    "26/09/2024": {
+			      "location": "ויקטורי, אשקלון מרכז",
+			      "products": [
+			        {
+			          "id": 1,
+			          "productName": "עוגת הבית דבש אסם, 400 גרם",
+			          "imageUrl": "images/honeycake.jpg",
+			          "minPrice": "7.90",
+			          "maxPrice": "20.90",
+			          "productPrice": "11.90"
+			        },
+			        {
+			          "id": 2,
+			          "productName": "ביצים לארג׳, 12 יחידות",
+			          "imageUrl": "images/eggs.jpg",
+			          "minPrice": "9.9",
+			          "maxPrice": "15.90",
+			          "productPrice": "13.90"
+			        },
+			        {
+			          "id": 3,
+			          "productName": "שמן זית יד מרדכי, 500 מ״ל",
+			          "imageUrl": "images/oliveoil.jpg",
+			          "minPrice": "19.90",
+			          "maxPrice": "39.90",
+			          "productPrice": "34.90"
+			        },
+			        {
+			          "id": 4,
+			          "productName": "סוכר לבן סוגת, 1 ק״ג",
+			          "imageUrl": "images/sugar.jpg",
+			          "minPrice": "3.90",
+			          "maxPrice": "7.90",
+			          "productPrice": "4.90"
+			        },
+			        {
+			          "id": 5,
+			          "productName": "דבש לחיץ יד מרדכי, 400 גרם",
+			          "imageUrl": "images/honey.jpg",
+			          "minPrice": "15.90",
+			          "maxPrice": "29.90",
+			          "productPrice": "19.90"
+			        },
+			        {
+			          "id": 6,
+			          "productName": "קמח רב תכליתי סוגת, 1 ק״ג",
+			          "imageUrl": "images/flour.jpg",
+			          "minPrice": "6.90",
+			          "maxPrice": "12.90",
+			          "productPrice": "7.50"
+			        }
+			      ],
+			      "meals": [
+			        {
+			          "id": 1,
+			          "mealName": "עוגת דבש ביתית",
+			          "products": [5, 3, 4, 6, 2]
+			        }
+			      ]
+			    }
   }
 }
