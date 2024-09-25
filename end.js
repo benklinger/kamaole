@@ -76,9 +76,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const actualPriceTitle = document.getElementById('actual-price-title');
             actualPriceTitle.innerHTML = `זה עולה ${formatPrice(actualPriceAgorot)}`;
 
-            // Removed the User's Guess Subtitle
-            // const guessPriceSubtitle = document.getElementById('guess-price-subtitle');
-            // guessPriceSubtitle.textContent = `הניחוש של היה ${formatPrice(guessPriceAgorot)}`;
+            // Display Price Breakdown
+            const priceBreakdownDiv = document.getElementById('price-breakdown');
+            if (typeParam === 'meal') {
+                // For meals, display each product in the meal with its price
+                item.products.forEach(pid => {
+                    const product = dateData.products.find(p => p.id === pid);
+                    if (product) {
+                        const productName = product.productName;
+                        const price = parseFloat(product.productPrice).toFixed(2);
+                        const productLine = document.createElement('h3');
+                        productLine.innerHTML = `${productName}: ${formatPrice(Math.round(price * 100))}`;
+                        priceBreakdownDiv.appendChild(productLine);
+                    }
+                });
+            }
 
             // Display Difference with Appropriate Text
             const differenceDiv = document.getElementById('price-difference');
@@ -98,8 +110,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Setup Yesterday's Game Option
             const yesterdayGameLink = document.getElementById('yesterday-game-link');
-            const todayGameLink = document.getElementById('today-game-link');
-            const yesterdayData = getYesterdayData(dateParam, typeParam, idParam, data);
+            const yesterdayData = getYesterdayData(dateParam, typeParam, data);
+
+            // Function to create a game option link
+            function createGameOptionLink(url, title, subtitle) {
+                const link = document.createElement('a');
+                link.classList.add('option-button');
+                link.href = url;
+                link.innerHTML = `
+                    <div class="option-title">${title}</div>
+                    <div class="option-subtitle">${subtitle}</div>
+                `;
+                return link;
+            }
 
             if (yesterdayData) {
                 const { dateStr, type, productName, weekday, id } = yesterdayData;
@@ -115,11 +138,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 const optionSubtitle = yesterdayGameLink.querySelector('.option-subtitle');
 
                 optionTitle.textContent = productName;
+
+                // Set subtitle based on type
                 if (type === 'product') {
                     optionSubtitle.textContent = `המוצר הבודד של ${weekday}, ${formatDateForDisplayStr(dateStr)}`;
                 } else if (type === 'meal') {
                     optionSubtitle.textContent = `הארוחה של ${weekday}, ${formatDateForDisplayStr(dateStr)}`;
                 }
+
+                // **Add Second Option Based on Current Type**
+                let secondOption = null;
+
+                if (typeParam === 'product') {
+                    // Add today's meal
+                    const today = new Date();
+                    const todayStr = formatDateString(today);
+                    const todayData = data.dates[todayStr];
+
+                    if (todayData && todayData.meals && todayData.meals.length > 0) {
+                        const todayMeal = todayData.meals[0]; // Assuming the first meal
+                        const todayMealUrl = `game.html?date=${encodeURIComponent(todayStr)}&type=meal&id=${encodeURIComponent(todayMeal.id)}`;
+
+                        secondOption = createGameOptionLink(
+                            todayMealUrl,
+                            todayMeal.mealName,
+                            `הארוחה של ${getDayName(today)}, ${formatDateForDisplayStr(todayStr)}`
+                        );
+                    }
+                } else if (typeParam === 'meal') {
+                    // Add today's product
+                    const today = new Date();
+                    const todayStr = formatDateString(today);
+                    const todayData = data.dates[todayStr];
+
+                    if (todayData && todayData.products && todayData.products.length > 0) {
+                        const todayProduct = todayData.products[0]; // Assuming the first product
+                        const todayProductUrl = `game.html?date=${encodeURIComponent(todayStr)}&type=product&id=${encodeURIComponent(todayProduct.id)}`;
+
+                        secondOption = createGameOptionLink(
+                            todayProductUrl,
+                            todayProduct.productName,
+                            `המוצר הבודד של ${getDayName(today)}, ${formatDateForDisplayStr(todayStr)}`
+                        );
+                    }
+                }
+
+                if (secondOption) {
+                    const optionsDiv = document.querySelector('.container .options');
+                    optionsDiv.appendChild(secondOption);
+                }
+
             } else {
                 // If yesterday's data is not available, hide the option or display a message
                 yesterdayGameLink.style.display = 'none';
@@ -127,37 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 alternativeText.textContent = 'אין משחק לאתמול.';
                 alternativeText.classList.add('no-yesterday-game');
                 yesterdayGameLink.parentElement.appendChild(alternativeText);
-            }
-
-            // Setup Today's Complementary Game Option
-            const todayData = getTodayComplementaryData(dateParam, typeParam, idParam, data);
-
-            if (todayData) {
-                const { dateStr, type, productName, weekday, id } = todayData;
-
-                // Build the URL for today's complementary game
-                const todayUrl = `game.html?date=${encodeURIComponent(dateStr)}&type=${encodeURIComponent(type)}&id=${encodeURIComponent(id)}`;
-
-                // Update the link's href attribute
-                todayGameLink.href = todayUrl;
-
-                // Update the option title and subtitle
-                const todayOptionTitle = todayGameLink.querySelector('.option-title');
-                const todayOptionSubtitle = todayGameLink.querySelector('.option-subtitle');
-
-                todayOptionTitle.textContent = productName;
-                if (type === 'product') {
-                    todayOptionSubtitle.textContent = `המוצר הבודד של ${weekday}, ${formatDateForDisplayStr(dateStr)}`;
-                } else if (type === 'meal') {
-                    todayOptionSubtitle.textContent = `הארוחה של ${weekday}, ${formatDateForDisplayStr(dateStr)}`;
-                }
-            } else {
-                // If today's complementary data is not available, hide the option or display a message
-                todayGameLink.style.display = 'none';
-                const alternativeText = document.createElement('div');
-                alternativeText.textContent = 'אין משחק היום.';
-                alternativeText.classList.add('no-today-game');
-                todayGameLink.parentElement.appendChild(alternativeText);
             }
 
             // Update footer using common.js function
@@ -176,11 +213,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Function to get yesterday's data based on the current date and type
-    function getYesterdayData(currentDateStr, currentType, currentId, data) {
+    function getYesterdayData(currentDateStr, currentType, data) {
         const currentDate = parseDateString(currentDateStr);
         const yesterdayDate = new Date(currentDate);
         yesterdayDate.setDate(currentDate.getDate() - 1);
-        const yesterdayStr = formatDateString(yesterdayDate); // Defined in common.js
+        const yesterdayStr = formatDateString(yesterdayDate); // Now defined in common.js
 
         const yesterdayData = data.dates[yesterdayStr];
         if (!yesterdayData) {
@@ -193,8 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let productName = '';
         if (type === 'product') {
             if (yesterdayData.products && yesterdayData.products.length > 0) {
-                // Try to find the same product id from yesterday
-                const product = yesterdayData.products.find(p => p.id === currentId);
+                const product = yesterdayData.products.find(p => p.id === idParam); // Use the same id if exists
                 if (product) {
                     productName = product.productName;
                     id = product.id;
@@ -209,8 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else if (type === 'meal') {
             if (yesterdayData.meals && yesterdayData.meals.length > 0) {
-                // Try to find the same meal id from yesterday
-                const meal = yesterdayData.meals.find(m => m.id === currentId);
+                const meal = yesterdayData.meals.find(m => m.id === idParam); // Use the same id if exists
                 if (meal) {
                     productName = meal.mealName;
                     id = meal.id;
@@ -233,55 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return {
             dateStr: yesterdayStr,
             type: type,
-            id: id,
-            productName: productName,
-            weekday: weekday
-        };
-    }
-
-    // Function to get today's complementary data based on the current type
-    function getTodayComplementaryData(currentDateStr, currentType, currentId, data) {
-        const todayStr = currentDateStr; // Assuming dateParam is today's date
-        const todayData = data.dates[todayStr];
-        if (!todayData) {
-            return null;
-        }
-
-        // Determine the complementary type
-        let complementaryType = currentType === 'product' ? 'meal' : 'product';
-        let id = null;
-        let productName = '';
-
-        if (complementaryType === 'product') {
-            if (todayData.products && todayData.products.length > 0) {
-                // For simplicity, use the first product
-                const product = todayData.products[0];
-                productName = product ? product.productName : 'מוצר לא זמין';
-                id = product ? product.id : null;
-            } else {
-                return null;
-            }
-        } else if (complementaryType === 'meal') {
-            if (todayData.meals && todayData.meals.length > 0) {
-                // For simplicity, use the first meal
-                const meal = todayData.meals[0];
-                productName = meal ? meal.mealName : 'ארוחה לא זמינה';
-                id = meal ? meal.id : null;
-            } else {
-                return null;
-            }
-        }
-
-        if (id === null) {
-            return null;
-        }
-
-        const dateObj = parseDateString(todayStr);
-        const weekday = getDayName(dateObj);
-
-        return {
-            dateStr: todayStr,
-            type: complementaryType,
             id: id,
             productName: productName,
             weekday: weekday

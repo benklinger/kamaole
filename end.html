@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>כמה עולה?</title> <!-- Updated Title -->
+    <title>כמה עולה?</title>
+    <!-- Viewport Meta Tag for Responsive Design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     <!-- CSS file -->
@@ -13,30 +15,32 @@
     <div class="container">
         <!-- Actual Price Title -->
         <h1 id="actual-price-title">טוען...</h1>
-        
+    
         <!-- Display Difference -->
-        <h3 id="price-difference" class="price-difference"></h3>
+        <div id="price-difference" class="price-difference"></div>
+            
+        <!-- Price Breakdown Container -->
+        <div id="price-breakdown" class="price-breakdown"></div>
 
         <!-- Title for Yesterday's Game -->
-        <h2>פספסת משחק?</h2> <!-- Updated Title -->
-
-        <!-- Option to Play Yesterday's Game -->
-        <a href="#" id="yesterday-game-link" class="option-button">
-            <div class="option-title">טוען...</div>
-            <div class="option-subtitle">טוען...</div>
-        </a>
-
-        <!-- Option to Play Today's Complementary Game -->
-        <a href="#" id="today-game-link" class="option-button">
-            <div class="option-title">טוען...</div>
-            <div class="option-subtitle">טוען...</div>
-        </a>
+        <h2>פספסת משחק?</h2>
+    
+        <!-- Options Container -->
+        <div class="options">
+            <!-- Option 1: Yesterday's Game -->
+            <a href="#" id="yesterday-game-link" class="option-button">
+                <div class="option-title">טוען...</div>
+                <div class="option-subtitle">טוען...</div>
+            </a>
+            <!-- Option 2: Today's Game (Added Dynamically via JavaScript) -->
+            <!-- The second option will be appended here by end.js -->
+        </div>
     </div>
-
+    
     <footer>
         <!-- Footer text will be dynamically inserted by common.js -->
     </footer>
-
+    
     <!-- Include common.js and end.js -->
     <script src="common.js"></script>
     <script src="end.js"></script>

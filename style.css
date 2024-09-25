@@ -60,6 +60,24 @@ h3 {
     margin-top: 5px;
 }
 
+.price-breakdown {
+    margin-top: 20px;
+    font-size: 1em;
+    text-align: center;
+}
+
+.price-breakdown h3 {
+    margin: 5px 0;
+    color: #555;
+    font-weight: normal;
+}
+
+.price-breakdown h3 .agorot {
+    font-size: 0.8em;
+    vertical-align: super;
+}
+
+
 /* Footer adjustments */
 footer {
     position: fixed;
