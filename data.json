@@ -95,6 +95,42 @@
           "products": [2, 3, 4, 5]
         }
       ]
-    }
+    },
+	    "25/09/2024": {
+	      "location": "שופרסל דיל, חריש",
+	      "products": [
+	        {
+	          "id": 1,
+	          "productName": "קליק כדורים, 65 גרם",
+	          "imageUrl": "images/clickballs.jpg",
+	          "minPrice": "5.00",
+	          "maxPrice": "11.00",
+	          "productPrice": "6.70"
+	        },
+	        {
+	          "id": 2,
+	          "productName": "ספגטי אסם, 500 גרם",
+	          "imageUrl": "images/spaghetti.jpg",
+	          "minPrice": "3.00",
+	          "maxPrice": "10.00",
+	          "productPrice": "6.00"
+	        },
+	        {
+	          "id": 3,
+	          "productName": "קטשופ אסם, 750 גרם",
+	          "imageUrl": "images/ketchup.jpg",
+	          "minPrice": "5.00",
+	          "maxPrice": "14.90",
+	          "productPrice": "5.90"
+	        }
+	      ],
+	      "meals": [
+	        {
+	          "id": 1,
+	          "mealName": "ספגטי אדום של ילדים",
+	          "products": [2, 3]
+	        }
+	      ]
+	    }
   }
 }
