@@ -1,14 +1,6 @@
-# כמה עולה? (How Much Does It Cost?)
+# Kama Ole? (How Much Does It Cost?)
 
-**כמה עולה?** is an interactive web-based game designed to challenge players' knowledge of product and meal prices. The game fetches data from a JSON file, presents players with either a product or a meal, and prompts them to guess its price. After making a guess, players receive feedback on the accuracy of their estimation and have the option to play previous or current games.
-
-## 📖 Table of Contents
-
-- [Features](#features)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+**Kama Ole?** is an interactive web-based game designed to challenge players' knowledge of product and meal prices. The game fetches data from a JSON file, presents players with either a product or a meal, and prompts them to guess its price. After making a guess, players receive feedback on the accuracy of their estimation and have the option to play previous or current games.
 
 ## ✨ Features
 
@@ -35,9 +27,9 @@ Follow these steps to play **כמה עולה?**:
      - Double-click to open it in your default web browser.
 
    - **Select Your Challenge:**
-     - You'll be presented with two options:
-       - **מוצר** (Product)
-       - **ארוחה** (Meal)
+     - You'll be presented with two daily options:
+       - **Product**
+       - **Meal**
      - Click on the desired option to begin.
 
 2. **Make a Guess:**
@@ -57,10 +49,7 @@ Follow these steps to play **כמה עולה?**:
      - Prices are displayed in shekels and agorot (e.g., ₪5<span class="agorot">90</span>).
 
    - **Feedback on Your Guess:**
-     - The page will indicate whether your guess was:
-       - **גבוה** (Too High)
-       - **נמוך** (Too Low)
-       - **נכון** (Correct)
+     - The page will indicate whether your guess was too high, low or correct.
      - The difference between your guess and the actual price is also displayed.
 
 4. **Replay or Play Previous Games:**
