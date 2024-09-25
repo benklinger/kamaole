@@ -43,10 +43,10 @@ function updateFooter(dataDateStr, location) {
     } else if (dataDate.getTime() === yesterday.getTime()) {
         footerDateText = 'אתמול';
     } else {
-        footerDateText = formatDateForDisplay(dataDate);
+		footerDateText = '-' + formatDateForDisplay(dataDate);
     }
 
-    footer.innerText = `המחיר נכון ל-${footerDateText}, ב${location}`;
+		footer.innerHTML = `המחיר נכון ל${footerDateText},<wbr> ב${location}`;
 }
 
 // Function to format a Date object to 'DD/MM/YYYY' string
