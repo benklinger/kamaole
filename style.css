@@ -117,7 +117,7 @@ footer {
 /* Product Image */
 .product-image {
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
     height: auto;
     margin-bottom: 10px; /* Spacing below image */
     cursor: pointer; /* Indicate that the image is clickable */
