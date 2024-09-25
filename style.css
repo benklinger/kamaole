@@ -155,7 +155,7 @@ footer {
 .slider-container {
     width: 80%;
     margin: 0 auto;
-    padding: 20px 0; /* Added top and bottom padding */
+    padding: 15px 0; /* Added top and bottom padding */
 }
 
 #price-slider {
