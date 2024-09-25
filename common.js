@@ -40,13 +40,14 @@ function updateFooter(dataDateStr, location) {
     let footerDateText = '';
     if (dataDate.getTime() === today.getTime()) {
         footerDateText = 'היום';
+		footer.innerHTML = `המחיר נכון ל${footerDateText}, ב${location}`;
     } else if (dataDate.getTime() === yesterday.getTime()) {
         footerDateText = 'אתמול';
+  	    footer.innerHTML = `המחיר נכון ל${footerDateText}, ב${location}`;
     } else {
 		footerDateText = '-' + formatDateForDisplay(dataDate);
-    }
-
-		footer.innerHTML = `המחיר נכון ל${footerDateText},<wbr> ב${location}`;
+  		footer.innerHTML = `המחיר נכון ל${footerDateText},<br>ב${location}`;
+	}
 }
 
 // Function to format a Date object to 'DD/MM/YYYY' string
