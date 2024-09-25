@@ -2,7 +2,32 @@ body {
     background-color: white;
     font-family: 'Rubik', sans-serif;
     direction: rtl;
+	margin: 0px;
 }
+
+.site-header {
+    position: sticky; /* Makes the header stick to the top */
+    top: 0; /* Position at the top of the viewport */
+    width: 100%; /* Full width */
+    background-color: #2F872A; /* Green background */
+    padding: 10px 0; /* Vertical padding for subtle height */
+    text-align: center; /* Center-align the content */
+    z-index: 1000; /* Ensure the header stays above other elements */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
+}
+
+.header-title {
+    color: #FFFFFF; /* White text */
+    text-decoration: none; /* Remove underline from link */
+    font-size: 1em; /* Adjust font size as needed */
+    font-weight: bold; /* Bold text for emphasis */
+    font-family: 'Rubik', sans-serif; /* Consistent font with the rest of the site */
+}
+
+.header-title:hover {
+    color: #f0f0f0; /* Slightly lighter color on hover */
+}
+
 
 .container {
     width: 100%;
@@ -16,7 +41,7 @@ h1, h3 {
 
 h1 {
     font-size: 1.6em;
-    color: green;
+    color: #2F872A;
     margin-top: 20px;
 	margin-bottom:10px;
 }
@@ -30,21 +55,21 @@ h3 {
 
 /* Options */
 .option-button {
-    display: block;
-    width: 90%;
-    padding: 15px;
-    margin: 15px 0;
-    border: 3px solid #f4f4f4;
-    background-color: white;
-    color: black;
-    font-size: 1.1em;
-    text-decoration: none;
-    border-radius: 10px; /* Rounded corners */
-    text-align: right; /* Align text to the right */
+	display: block;
+	width: 80%;
+	padding: 15px;
+	margin: 15px 0; /* This line currently sets vertical margin */
+	border: 3px solid #f4f4f4;
+	color: black;
+	font-size: 1.1em;
+	text-decoration: none;
+	border-radius: 10px;
+	text-align: right;
+	margin-right: 5%; /* Add this line to create a right margin */
 }
 
 .option-button:hover {
-    border-color: green;
+    border-color: #4CAF50;
 	background-color: #2F872A;
 	color: white;
 }
@@ -102,7 +127,7 @@ footer {
 #product-title {
     font-size: 1.6em;
     font-weight: bold;
-    color: green;
+    color: #2F872A;
     margin: 10px 0 5px 0;
 }
 
@@ -173,7 +198,7 @@ footer {
     -webkit-appearance: none;
     width: 25px;
     height: 25px;
-    background: green;
+    background: #2F872A;
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -186,7 +211,7 @@ footer {
 #price-slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
-    background: green;
+    background: #2F872A;
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -210,7 +235,7 @@ footer {
     width: 80%;
     margin: 20px auto;
     padding: 15px;
-    background-color: green;
+    background-color: #2F872A;
     color: white;
     font-size: 24px;
     text-align: center;
@@ -266,7 +291,7 @@ footer {
 }
 
 .correct {
-    color: green; /* Indicates a correct guess */
+    color: #2F872A; /* Indicates a correct guess */
 }
 
 .error-message {

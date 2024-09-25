@@ -4,28 +4,22 @@
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>כמה עולה?</title>
-    <!-- Viewport Meta Tag for Responsive Design -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-    <!-- CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+	<header class="site-header">
+	    <a href="index.html" class="header-title">כמה עולה?</a>
+	</header>
     <div class="container">
-        <!-- Actual Price Title -->
         <h1 id="actual-price-title">טוען...</h1>
     
-        <!-- Display Difference -->
         <div id="price-difference" class="price-difference"></div>
             
-        <!-- Price Breakdown Container -->
         <div id="price-breakdown" class="price-breakdown"></div>
 
-        <!-- Title for Yesterday's Game -->
         <h2>פספסת משחק?</h2>
     
-        <!-- Options Container -->
         <div class="options">
             <!-- Option 1: Yesterday's Game -->
             <a href="#" id="yesterday-game-link" class="option-button">
@@ -41,7 +35,6 @@
         <!-- Footer text will be dynamically inserted by common.js -->
     </footer>
     
-    <!-- Include common.js and end.js -->
     <script src="common.js"></script>
     <script src="end.js"></script>
 </body>
