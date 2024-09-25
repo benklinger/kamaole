@@ -46,7 +46,7 @@ function updateFooter(dataDateStr, location) {
         footerDateText = formatDateForDisplay(dataDate);
     }
 
-    footer.innerText = `המחירים נכונים ל${footerDateText}, ב${location}`;
+    footer.innerText = `המחיר נכון ל-${footerDateText}, ב${location}`;
 }
 
 // Function to format a Date object to 'DD/MM/YYYY' string
