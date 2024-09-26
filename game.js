@@ -51,11 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Elements
             const productTitle = document.getElementById('product-title');
             const productSubtitle = document.getElementById('product-subtitle');
-            const productImage = document.getElementById('product-image');
+            let productImage = document.getElementById('product-image'); // Changed to let
             const dotsContainer = document.getElementById('dots-container');
 
             let productsInbasket = [];
             let currentProductIndex = 0; // Default to first product
+            let isFirstLoad = true; // Flag to prevent animation on first load
 
             if (typeParam === 'product') {
                 // For a single product, use the selected product
@@ -102,8 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         dot.classList.add('active');
                     }
                     dot.addEventListener('click', () => {
+                        if (index === currentProductIndex) return; // Do nothing if the same dot is clicked
+
+                        const direction = index > currentProductIndex ? 'left' : 'right';
                         currentProductIndex = index;
-                        updateProductDisplay();
+                        updateProductDisplay(direction);
                         updateDots();
                     });
                     dotsContainer.appendChild(dot);
@@ -112,40 +116,91 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Add click event to the image to toggle products
                 productImage.addEventListener('click', () => {
                     // Move to the next product
+                    const previousIndex = currentProductIndex;
                     currentProductIndex = (currentProductIndex + 1) % productsInbasket.length;
-                    updateProductDisplay();
+                    const direction = 'left';
+                    updateProductDisplay(direction);
                     updateDots();
                 });
+
+                // Add touch event listeners for swipe functionality
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                productImage.addEventListener('touchstart', handleTouchStart, false);
+                productImage.addEventListener('touchend', handleTouchEnd, false);
+
+                function handleTouchStart(e) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }
+
+                function handleTouchEnd(e) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleGesture();
+                }
+
+                function handleGesture() {
+                    const swipeThreshold = 50; // Adjust this value as needed
+                    const deltaX = touchEndX - touchStartX;
+
+                    if (Math.abs(deltaX) > swipeThreshold) {
+                        let direction = '';
+                        if (deltaX > 0) {
+                            // Swipe right - go to previous product
+                            currentProductIndex = (currentProductIndex - 1 + productsInbasket.length) % productsInbasket.length;
+                            direction = 'right';
+                        } else {
+                            // Swipe left - go to next product
+                            currentProductIndex = (currentProductIndex + 1) % productsInbasket.length;
+                            direction = 'left';
+                        }
+                        updateProductDisplay(direction);
+                        updateDots();
+                    }
+                }
 
                 // Initialize image gallery by ensuring the image is visible
                 productImage.style.visibility = 'visible';
 
-                // Initial display
+                // Initial display without animation
                 updateProductDisplay();
             }
 
-            function updateProductDisplay() {
+            function updateProductDisplay(direction = null) {
                 const currentProduct = productsInbasket[currentProductIndex];
 
-                // Fade out
-                productImage.classList.add('fade-out');
-                productSubtitle.classList.add('fade-out');
+                // Update the subtitle
+                productSubtitle.textContent = currentProduct.productName;
 
-                setTimeout(() => {
-                    // Update content
-                    productSubtitle.textContent = currentProduct.productName;
+                // If it's the first load, just set the image without animation
+                if (isFirstLoad && !direction) {
+                    productImage.src = currentProduct.imageUrl;
+                    isFirstLoad = false;
+                    return;
+                }
+
+                if (!direction) {
+                    direction = 'left'; // Default direction if not provided
+                }
+
+                // Apply slide-out class
+                productImage.classList.remove('slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right');
+                productImage.classList.add(direction === 'left' ? 'slide-out-left' : 'slide-out-right');
+
+                // Listen for the end of the slide-out animation
+                productImage.addEventListener('animationend', function animationEndHandler() {
+                    // Remove slide-out class
+                    productImage.classList.remove(direction === 'left' ? 'slide-out-left' : 'slide-out-right');
+
+                    // Update the image source
                     productImage.src = currentProduct.imageUrl;
 
-                    // Make the image visible
-                    productImage.style.visibility = 'visible';
+                    // Apply slide-in class
+                    productImage.classList.add(direction === 'left' ? 'slide-in-right' : 'slide-in-left');
 
-                    // Fade in
-                    productImage.classList.remove('fade-out');
-                    productImage.classList.add('fade-in');
-
-                    productSubtitle.classList.remove('fade-out');
-                    productSubtitle.classList.add('fade-in');
-                }, 300); // Duration should match CSS animation duration
+                    // Remove the event listener to prevent multiple triggers
+                    productImage.removeEventListener('animationend', animationEndHandler);
+                });
             }
 
             function updateDots() {
@@ -154,15 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     dots[i].classList.toggle('active', i === currentProductIndex);
                 }
             }
-
-            // Event listeners to remove fade-in class after animation
-            productImage.addEventListener('animationend', () => {
-                productImage.classList.remove('fade-in');
-            });
-
-            productSubtitle.addEventListener('animationend', () => {
-                productSubtitle.classList.remove('fade-in');
-            });
 
             // Get minPrice, maxPrice, and actualPrice
             let minPrice = 0;
@@ -279,7 +325,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Redirect to end.html with the parameters
                 window.location.href = endUrl;
             });
-           
         })
         .catch(error => {
             console.error('Error loading data:', error);

@@ -120,6 +120,7 @@ footer {
     margin: 0 auto;
     text-align: center;
     margin-top: 20px;
+    position: relative;
 }
 
 /* Meal Title or Product Title */
@@ -143,41 +144,16 @@ footer {
     width: 100%;
     max-width: 300px;
     height: auto;
-    margin-bottom: 10px; /* Spacing below image */
     cursor: pointer; /* Indicate that the image is clickable */
+    touch-action: pan-y;
+	display: block;
+	margin: 0 auto;
+	transition: transform 0.3s ease;
 }
 
 hr {
 	margin: 30px 0;
 	width: 100%;
-}
-
-/* Dots Container */
-.dots-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-/* Dot Styles */
-.dot {
-    height: 12px;
-    width: 12px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.dot:hover {
-    background-color: #999;
-}
-
-.dot.active {
-    background-color: #717171;
 }
 
 /* Slider Container */
@@ -262,25 +238,6 @@ hr {
     cursor: not-allowed;
 }
 
-/* Fade Animations */
-.fade-in {
-    animation: fadeIn 0.3s forwards;
-}
-
-.fade-out {
-    animation: fadeOut 0.3s forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
 /* Footer */
 footer {
     font-size: 1em;
@@ -309,4 +266,63 @@ footer {
     margin-top: 20px;
     font-size: 1em;
     color: gray;
+}
+
+/* Slide-in and slide-out animations using transforms */
+.slide-in-left {
+    animation: slideInLeft 0.3s forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.3s forwards;
+}
+
+.slide-out-left {
+    animation: slideOutLeft 0.3s forwards;
+}
+
+.slide-out-right {
+    animation: slideOutRight 0.3s forwards;
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideOutLeft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+@keyframes slideOutRight {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+}
+
+/* Dot styles */
+.dots-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #717171;
 }
