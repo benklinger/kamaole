@@ -29,12 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const products = dateData.products;
-            const meals = dateData.meals;
+            const baskets = dateData.baskets;
             const location = dateData.location;
 
             const optionsDiv = document.getElementById('options');
             if (!optionsDiv) {
-                console.error('options element not found in the DOM.');
                 return;
             }
 
@@ -55,30 +54,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 option1Link.href = productUrl;
                 option1Link.innerHTML = `
                     <div class="option-title">${product.productName}</div>
-                    <div class="option-subtitle">המוצר הבודד של ${dayName}, ${displayDate}</div>
+                    <div class="option-subtitle">המוצר של ${dayName}, ${displayDate}</div>
                 `;
                 optionsDiv.appendChild(option1Link);
-            } else {
-                console.error('No products available for this date.');
-                // Optionally display a message to the user
             }
 
-            // Option 2 - Meal
-            if (Array.isArray(meals) && meals.length > 0) {
-                const meal = meals[0]; // Get the first meal
+            // Option 2 - basket
+            if (Array.isArray(baskets) && baskets.length > 0) {
+                const basket = baskets[0]; // Get the first basket
 
-                const mealUrl = `game.html?date=${encodeURIComponent(dateParam)}&type=meal&id=${encodeURIComponent(meal.id)}`;
+                const basketUrl = `game.html?date=${encodeURIComponent(dateParam)}&type=basket&id=${encodeURIComponent(basket.id)}`;
 
                 const option2Link = document.createElement('a');
                 option2Link.classList.add('option-button');
-                option2Link.href = mealUrl;
+                option2Link.href = basketUrl;
                 option2Link.innerHTML = `
-                    <div class="option-title">${meal.mealName}</div>
-                    <div class="option-subtitle">הארוחה של ${dayName}, ${displayDate}</div>
+                    <div class="option-title">${basket.basketName}</div>
+                    <div class="option-subtitle">הסל של ${dayName}, ${displayDate}</div>
                 `;
                 optionsDiv.appendChild(option2Link);
             } else {
-                console.error('No meals available for this date.');
+                console.error('No baskets available for this date.');
                 // Optionally display a message to the user
             }
 

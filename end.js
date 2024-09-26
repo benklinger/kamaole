@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const params = getQueryParams();
     const dateParam = params.date;
-    const typeParam = params.type; // 'product' or 'meal'
+    const typeParam = params.type; // 'product' or 'basket'
     const guessPriceAgorot = parseInt(params.guessPrice, 10); // Price in agorot
     const idParam = params.id ? parseInt(params.id, 10) : null; // Optional ID
 
@@ -37,12 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const location = dateData.location;
 
-            // Access the product or meal based on type and id
+            // Access the product or basket based on type and id
             let item;
             if (typeParam === 'product') {
                 item = dateData.products.find(p => p.id === idParam);
-            } else if (typeParam === 'meal') {
-                item = dateData.meals.find(m => m.id === idParam);
+            } else if (typeParam === 'basket') {
+                item = dateData.baskets.find(m => m.id === idParam);
             } else {
                 console.error('Invalid type parameter.');
                 displayError('פרמטר סוג בלתי חוקי.');
@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (typeParam === 'product') {
                 actualPriceAgorot = Math.round(parseFloat(item.productPrice) * 100);
-            } else if (typeParam === 'meal') {
+            } else if (typeParam === 'basket') {
                 if (!Array.isArray(item.products)) {
-                    console.error('Invalid products data for meal.');
+                    console.error('Invalid products data for basket.');
                     displayError('נתוני מוצרים לא חוקיים לארוחה.');
                     return;
                 }
@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Display Price Breakdown
             const priceBreakdownDiv = document.getElementById('price-breakdown');
-            if (typeParam === 'meal') {
-                // For meals, display each product in the meal with its price
+            if (typeParam === 'basket') {
+                // For baskets, display each product in the basket with its price
                 item.products.forEach(pid => {
                     const product = dateData.products.find(p => p.id === pid);
                     if (product) {
@@ -141,31 +141,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Set subtitle based on type
                 if (type === 'product') {
-                    optionSubtitle.textContent = `המוצר הבודד של ${weekday}, ${formatDateForDisplayStr(dateStr)}`;
-                } else if (type === 'meal') {
-                    optionSubtitle.textContent = `הארוחה של ${weekday}, ${formatDateForDisplayStr(dateStr)}`;
+                    optionSubtitle.textContent = `המוצר של ${weekday}, ${formatDateForDisplayStr(dateStr)}`;
+                } else if (type === 'basket') {
+                    optionSubtitle.textContent = `הסל של ${weekday}, ${formatDateForDisplayStr(dateStr)}`;
                 }
 
                 // **Add Second Option Based on Current Type**
                 let secondOption = null;
 
                 if (typeParam === 'product') {
-                    // Add today's meal
+                    // Add today's basket
                     const today = new Date();
                     const todayStr = formatDateString(today);
                     const todayData = data.dates[todayStr];
 
-                    if (todayData && todayData.meals && todayData.meals.length > 0) {
-                        const todayMeal = todayData.meals[0]; // Assuming the first meal
-                        const todayMealUrl = `game.html?date=${encodeURIComponent(todayStr)}&type=meal&id=${encodeURIComponent(todayMeal.id)}`;
+                    if (todayData && todayData.baskets && todayData.baskets.length > 0) {
+                        const todaybasket = todayData.baskets[0]; // Assuming the first basket
+                        const todaybasketUrl = `game.html?date=${encodeURIComponent(todayStr)}&type=basket&id=${encodeURIComponent(todaybasket.id)}`;
 
                         secondOption = createGameOptionLink(
-                            todayMealUrl,
-                            todayMeal.mealName,
-                            `הארוחה של ${getDayName(today)}, ${formatDateForDisplayStr(todayStr)}`
+                            todaybasketUrl,
+                            todaybasket.basketName,
+                            `הסל של ${getDayName(today)}, ${formatDateForDisplayStr(todayStr)}`
                         );
                     }
-                } else if (typeParam === 'meal') {
+                } else if (typeParam === 'basket') {
                     // Add today's product
                     const today = new Date();
                     const todayStr = formatDateString(today);
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         secondOption = createGameOptionLink(
                             todayProductUrl,
                             todayProduct.productName,
-                            `המוצר הבודד של ${getDayName(today)}, ${formatDateForDisplayStr(todayStr)}`
+                            `המוצר של ${getDayName(today)}, ${formatDateForDisplayStr(todayStr)}`
                         );
                     }
                 }
@@ -243,17 +243,17 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 return null;
             }
-        } else if (type === 'meal') {
-            if (yesterdayData.meals && yesterdayData.meals.length > 0) {
-                const meal = yesterdayData.meals.find(m => m.id === idParam); // Use the same id if exists
-                if (meal) {
-                    productName = meal.mealName;
-                    id = meal.id;
+        } else if (type === 'basket') {
+            if (yesterdayData.baskets && yesterdayData.baskets.length > 0) {
+                const basket = yesterdayData.baskets.find(m => m.id === idParam); // Use the same id if exists
+                if (basket) {
+                    productName = basket.basketName;
+                    id = basket.id;
                 } else {
-                    // If the same id doesn't exist yesterday, use the first meal
-                    const firstMeal = yesterdayData.meals[0];
-                    productName = firstMeal ? firstMeal.mealName : 'ארוחה לא זמינה';
-                    id = firstMeal ? firstMeal.id : null;
+                    // If the same id doesn't exist yesterday, use the first basket
+                    const firstbasket = yesterdayData.baskets[0];
+                    productName = firstbasket ? firstbasket.basketName : 'סל לא זמין';
+                    id = firstbasket ? firstbasket.id : null;
                 }
             } else {
                 return null;

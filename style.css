@@ -9,18 +9,17 @@ body {
     position: sticky; /* Makes the header stick to the top */
     top: 0; /* Position at the top of the viewport */
     width: 100%; /* Full width */
-    background-color: #2F872A; /* Green background */
-    padding: 10px 0; /* Vertical padding for subtle height */
     text-align: center; /* Center-align the content */
+    background-color: #ffffff; /* Green background */
+    padding: 10px 0; /* Vertical padding for subtle height */
     z-index: 1000; /* Ensure the header stays above other elements */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
 }
 
 .header-title {
-    color: #FFFFFF; /* White text */
+    color: #2F872A; /* White text */
     text-decoration: none; /* Remove underline from link */
-    font-size: 1em; /* Adjust font size as needed */
-    font-weight: bold; /* Bold text for emphasis */
+    font-size: 1.2em; /* Adjust font size as needed */
     font-family: 'Rubik', sans-serif; /* Consistent font with the rest of the site */
 }
 
@@ -146,6 +145,11 @@ footer {
     height: auto;
     margin-bottom: 10px; /* Spacing below image */
     cursor: pointer; /* Indicate that the image is clickable */
+}
+
+hr {
+	margin: 30px 0;
+	width: 100%;
 }
 
 /* Dots Container */

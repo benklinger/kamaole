@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const params = getQueryParams();
     const dateParam = params.date;
-    const typeParam = params.type; // 'product' or 'meal'
+    const typeParam = params.type; // 'product' or 'basket'
     const idParam = params.id ? parseInt(params.id, 10) : null; // Extract and parse 'id'
 
     // Validate required parameters
-    if (!dateParam || !typeParam || (typeParam === 'product' && isNaN(idParam)) || (typeParam === 'meal' && isNaN(idParam))) {
+    if (!dateParam || !typeParam || (typeParam === 'product' && isNaN(idParam)) || (typeParam === 'basket' && isNaN(idParam))) {
         console.error('Date, type, and valid id parameters are required in the URL.');
         return;
     }
@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const location = dateData.location;
 
-            // Access the product or meal based on type and id
+            // Access the product or basket based on type and id
             let item;
             if (typeParam === 'product') {
                 item = dateData.products.find(p => p.id === idParam);
-            } else if (typeParam === 'meal') {
-                item = dateData.meals.find(m => m.id === idParam);
+            } else if (typeParam === 'basket') {
+                item = dateData.baskets.find(m => m.id === idParam);
             } else {
                 console.error('Invalid type parameter.');
                 return;
@@ -54,13 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const productImage = document.getElementById('product-image');
             const dotsContainer = document.getElementById('dots-container');
 
-            let productsInMeal = [];
+            let productsInbasket = [];
             let currentProductIndex = 0; // Default to first product
 
             if (typeParam === 'product') {
                 // For a single product, use the selected product
                 const product = item;
-                productsInMeal = [product];
+                productsInbasket = [product];
 
                 // Set product title
                 productTitle.textContent = product.productName;
@@ -73,29 +73,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Set product image
                 productImage.src = product.imageUrl;
                 productImage.style.visibility = 'visible';
-            } else if (typeParam === 'meal') {
-                // For meals, get the products included
-                productsInMeal = item.products.map(pid => dateData.products.find(p => p.id === pid)).filter(p => p);
-                if (productsInMeal.length === 0) {
-                    console.error('No valid products found for this meal.');
+            } else if (typeParam === 'basket') {
+                // For baskets, get the products included
+                productsInbasket = item.products.map(pid => dateData.products.find(p => p.id === pid)).filter(p => p);
+                if (productsInbasket.length === 0) {
+                    console.error('No valid products found for this basket.');
                     return;
                 }
 
-                // Set meal title
-                productTitle.textContent = item.mealName;
+                // Set basket title
+                productTitle.textContent = item.basketName;
                 productTitle.style.color = 'green';
 
                 // Show the product subtitle
                 productSubtitle.style.display = 'block';
                 // Set the initial product subtitle
-                productSubtitle.textContent = productsInMeal[currentProductIndex].productName;
+                productSubtitle.textContent = productsInbasket[currentProductIndex].productName;
 
                 // Show the dots container
                 dotsContainer.style.display = 'flex';
 
                 // Initialize dots for product navigation
                 dotsContainer.innerHTML = '';
-                productsInMeal.forEach((_, index) => {
+                productsInbasket.forEach((_, index) => {
                     const dot = document.createElement('span');
                     dot.classList.add('dot');
                     if (index === currentProductIndex) {
@@ -112,17 +112,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Add click event to the image to toggle products
                 productImage.addEventListener('click', () => {
                     // Move to the next product
-                    currentProductIndex = (currentProductIndex + 1) % productsInMeal.length;
+                    currentProductIndex = (currentProductIndex + 1) % productsInbasket.length;
                     updateProductDisplay();
                     updateDots();
                 });
+
+                // Initialize image gallery by ensuring the image is visible
+                productImage.style.visibility = 'visible';
 
                 // Initial display
                 updateProductDisplay();
             }
 
             function updateProductDisplay() {
-                const currentProduct = productsInMeal[currentProductIndex];
+                const currentProduct = productsInbasket[currentProductIndex];
 
                 // Fade out
                 productImage.classList.add('fade-out');
@@ -167,12 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
             let actualPrice = 0;
 
             if (typeParam === 'product') {
-                const product = productsInMeal[0];
+                const product = productsInbasket[0];
                 minPrice = parseFloat(product.minPrice);
                 maxPrice = parseFloat(product.maxPrice);
                 actualPrice = parseFloat(product.productPrice);
-            } else if (typeParam === 'meal') {
-                productsInMeal.forEach(product => {
+            } else if (typeParam === 'basket') {
+                productsInbasket.forEach(product => {
                     minPrice += parseFloat(product.minPrice);
                     maxPrice += parseFloat(product.maxPrice);
                     actualPrice += parseFloat(product.productPrice);
@@ -231,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return 1 - Math.pow(1 - t, 3);
                 }
 
-                function animate(currentTime) {
+                function animateFrame(currentTime) {
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
                     const easedProgress = easeOutCubic(progress);
@@ -245,11 +248,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     buttonPriceDisplay.innerHTML = `₪${shekels}<span class="agorot">${agorotStr}</span>`;
 
                     if (progress < 1) {
-                        requestAnimationFrame(animate);
+                        requestAnimationFrame(animateFrame);
                     }
                 }
 
-                requestAnimationFrame(animate);
+                requestAnimationFrame(animateFrame);
             }
 
             // Initial display
@@ -276,6 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Redirect to end.html with the parameters
                 window.location.href = endUrl;
             });
+           
         })
         .catch(error => {
             console.error('Error loading data:', error);

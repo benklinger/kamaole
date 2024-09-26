@@ -36,10 +36,10 @@
           "productPrice": "6.80"
         }
       ],
-      "meals": [
+      "baskets": [
         {
           "id": 1,
-          "mealName": "פיצה פיתה",
+          "basketName": "פיצה פיתה",
           "products": [2, 3, 4]
         }
       ]
@@ -88,10 +88,10 @@
           "productPrice": "0.80"
         }
       ],
-      "meals": [
+      "baskets": [
         {
           "id": 1,
-          "mealName": "מטבוחה ביתית",
+          "basketName": "מטבוחה ביתית",
           "products": [2, 3, 4, 5]
         }
       ]
@@ -124,10 +124,10 @@
 	          "productPrice": "5.90"
 	        }
 	      ],
-	      "meals": [
+	      "baskets": [
 	        {
 	          "id": 1,
-	          "mealName": "ספגטי אדום של ילדים",
+	          "basketName": "ספגטי אדום של ילדים",
 	          "products": [2, 3]
 	        }
 	      ]
@@ -184,11 +184,55 @@
 			          "productPrice": "7.50"
 			        }
 			      ],
-			      "meals": [
+			      "baskets": [
 			        {
 			          "id": 1,
-			          "mealName": "עוגת דבש ביתית",
+			          "basketName": "עוגת דבש ביתית",
 			          "products": [5, 3, 4, 6, 2]
+			        }
+			      ]
+			    },
+			    "27/09/2024": {
+			      "location": "קרפור סיטי, רמת גן",
+			      "products": [
+			        {
+			          "id": 1,
+			          "productName": "גלידת בן אנד ג׳ריס, 500 מ״ל",
+			          "imageUrl": "images/netflixchilled.jpg",
+			          "minPrice": "17.90",
+			          "maxPrice": "35.90",
+			          "productPrice": "21.00"
+			        },
+			        {
+			          "id": 2,
+			          "productName": "חלב מרוכז ויליפוד, 397 גרם",
+			          "imageUrl": "images/condensedmilk.jpg",
+			          "minPrice": "7.90",
+			          "maxPrice": "12.90",
+			          "productPrice": "9.90"
+			        },
+			        {
+			          "id": 3,
+			          "productName": "שמנת להקצפה 38%, 500 מ״ל",
+			          "imageUrl": "images/heavycream.jpg",
+			          "minPrice": "9.90",
+			          "maxPrice": "14.90",
+			          "productPrice": "14.80"
+			        },
+			        {
+			          "id": 4,
+			          "productName": "תמצית וניל טהור מימון, 30 מ״ל",
+			          "imageUrl": "images/vanillaextract.jpg",
+			          "minPrice": "14.90",
+			          "maxPrice": "35.90",
+			          "productPrice": "29.90"
+			        }
+			      ],
+			      "baskets": [
+			        {
+			          "id": 1,
+			          "basketName": "גלידת וניל ביתית",
+			          "products": [3, 2, 4]
 			        }
 			      ]
 			    }
