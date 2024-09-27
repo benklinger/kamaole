@@ -113,6 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     dotsContainer.appendChild(dot);
                 });
 
+                // Preload all images
+                preloadImages(productsInbasket);
+
                 // Add click event to the image to toggle products
                 productImage.addEventListener('click', () => {
                     // Move to the next product
@@ -164,6 +167,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Initial display without animation
                 updateProductDisplay();
+            }
+
+            /**
+             * Preload all product images to ensure smooth transitions.
+             * @param {Array} products - Array of product objects with imageUrl properties.
+             */
+            function preloadImages(products) {
+                products.forEach(product => {
+                    const img = new Image();
+                    img.src = product.imageUrl;
+                });
             }
 
             function updateProductDisplay(direction = null) {
