@@ -21,12 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     fetch('data.json?t=' + new Date().getTime())
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok (status: ${response.status})`);
+            }
+            return response.json();
+        })
         .then(data => {
             const dateData = data.dates[dateParam];
 
             if (!dateData) {
-                console.error('No data found for the given date.');
+                console.error(`Error: No data found for the date "${dateParam}".`);
                 return;
             }
 
@@ -39,29 +44,29 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (typeParam === 'basket') {
                 item = dateData.baskets.find(m => m.id === idParam);
             } else {
-                console.error('Invalid type parameter.');
+                console.error(`Error: Invalid type "${typeParam}". Expected "product" or "basket".`);
                 return;
             }
 
             if (!item) {
-                console.error('No item found for the given type and id.');
+                console.error(`Error: No item found for type "${typeParam}" with id "${idParam}".`);
                 return;
             }
 
-            // Elements
+            // DOM Elements
             const productTitle = document.getElementById('product-title');
             const productSubtitle = document.getElementById('product-subtitle');
             let productImage = document.getElementById('product-image'); // Changed to let
             const dotsContainer = document.getElementById('dots-container');
 
-            let productsInbasket = [];
+            let productsInBasket = [];
             let currentProductIndex = 0; // Default to first product
             let isFirstLoad = true; // Flag to prevent animation on first load
 
             if (typeParam === 'product') {
                 // For a single product, use the selected product
                 const product = item;
-                productsInbasket = [product];
+                productsInBasket = [product];
 
                 // Set product title
                 productTitle.textContent = product.productName;
@@ -76,9 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 productImage.style.visibility = 'visible';
             } else if (typeParam === 'basket') {
                 // For baskets, get the products included
-                productsInbasket = item.products.map(pid => dateData.products.find(p => p.id === pid)).filter(p => p);
-                if (productsInbasket.length === 0) {
-                    console.error('No valid products found for this basket.');
+                productsInBasket = item.products.map(pid => dateData.products.find(p => p.id === pid)).filter(p => p);
+                if (productsInBasket.length === 0) {
+                    console.error('Error: No valid products found for this basket.');
                     return;
                 }
 
@@ -89,14 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show the product subtitle
                 productSubtitle.style.display = 'block';
                 // Set the initial product subtitle
-                productSubtitle.textContent = productsInbasket[currentProductIndex].productName;
+                productSubtitle.textContent = productsInBasket[currentProductIndex].productName;
 
                 // Show the dots container
                 dotsContainer.style.display = 'flex';
 
                 // Initialize dots for product navigation
                 dotsContainer.innerHTML = '';
-                productsInbasket.forEach((_, index) => {
+                productsInBasket.forEach((_, index) => {
                     const dot = document.createElement('span');
                     dot.classList.add('dot');
                     if (index === currentProductIndex) {
@@ -114,13 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 // Preload all images
-                preloadImages(productsInbasket);
+                preloadImages(productsInBasket);
 
                 // Add click event to the image to toggle products
                 productImage.addEventListener('click', () => {
                     // Move to the next product
                     const previousIndex = currentProductIndex;
-                    currentProductIndex = (currentProductIndex + 1) % productsInbasket.length;
+                    currentProductIndex = (currentProductIndex + 1) % productsInBasket.length;
                     const direction = 'left';
                     updateProductDisplay(direction);
                     updateDots();
@@ -150,11 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         let direction = '';
                         if (deltaX > 0) {
                             // Swipe right - go to previous product
-                            currentProductIndex = (currentProductIndex - 1 + productsInbasket.length) % productsInbasket.length;
+                            currentProductIndex = (currentProductIndex - 1 + productsInBasket.length) % productsInBasket.length;
                             direction = 'right';
                         } else {
                             // Swipe left - go to next product
-                            currentProductIndex = (currentProductIndex + 1) % productsInbasket.length;
+                            currentProductIndex = (currentProductIndex + 1) % productsInBasket.length;
                             direction = 'left';
                         }
                         updateProductDisplay(direction);
@@ -180,11 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
+            /**
+             * Update the displayed product image with sliding animations.
+             * @param {string} [direction=null] - 'left' or 'right' indicating slide direction.
+             */
             function updateProductDisplay(direction = null) {
-                const currentProduct = productsInbasket[currentProductIndex];
+                const currentProduct = productsInBasket[currentProductIndex];
 
                 // Update the subtitle
-                productSubtitle.textContent = currentProduct.productName;
+                if (typeParam === 'basket') {
+                    productSubtitle.textContent = currentProduct.productName;
+                }
 
                 // If it's the first load, just set the image without animation
                 if (isFirstLoad && !direction) {
@@ -197,26 +208,47 @@ document.addEventListener('DOMContentLoaded', () => {
                     direction = 'left'; // Default direction if not provided
                 }
 
-                // Apply slide-out class
+                // Remove any existing animation classes to prevent conflicts
                 productImage.classList.remove('slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right');
-                productImage.classList.add(direction === 'left' ? 'slide-out-left' : 'slide-out-right');
 
-                // Listen for the end of the slide-out animation
-                productImage.addEventListener('animationend', function animationEndHandler() {
-                    // Remove slide-out class
-                    productImage.classList.remove(direction === 'left' ? 'slide-out-left' : 'slide-out-right');
+                // Determine the slide-out and slide-in classes based on direction
+                const slideOutClass = direction === 'left' ? 'slide-out-left' : 'slide-out-right';
+                const slideInClass = direction === 'left' ? 'slide-in-right' : 'slide-in-left';
 
-                    // Update the image source
-                    productImage.src = currentProduct.imageUrl;
+                // Apply the slide-out class to initiate the slide-out animation
+                productImage.classList.add(slideOutClass);
 
-                    // Apply slide-in class
-                    productImage.classList.add(direction === 'left' ? 'slide-in-right' : 'slide-in-left');
+                // Define the animationend handler
+                function onAnimationEnd(e) {
+                    if (e.animationName === 'slideOutLeft' || e.animationName === 'slideOutRight') {
+                        // Slide-out animation ended
 
-                    // Remove the event listener to prevent multiple triggers
-                    productImage.removeEventListener('animationend', animationEndHandler);
-                });
+                        // Remove slide-out class
+                        productImage.classList.remove(slideOutClass);
+
+                        // Update the image source to the new product
+                        productImage.src = currentProduct.imageUrl;
+
+                        // Apply slide-in class to initiate the slide-in animation
+                        productImage.classList.add(slideInClass);
+                    } else if (e.animationName === 'slideInLeft' || e.animationName === 'slideInRight') {
+                        // Slide-in animation ended
+
+                        // Remove slide-in class
+                        productImage.classList.remove(slideInClass);
+
+                        // Remove this event listener to prevent memory leaks
+                        productImage.removeEventListener('animationend', onAnimationEnd);
+                    }
+                }
+
+                // Add event listener for animationend
+                productImage.addEventListener('animationend', onAnimationEnd);
             }
 
+            /**
+             * Update the active state of navigation dots.
+             */
             function updateDots() {
                 const dots = dotsContainer.getElementsByClassName('dot');
                 for (let i = 0; i < dots.length; i++) {
@@ -230,12 +262,12 @@ document.addEventListener('DOMContentLoaded', () => {
             let actualPrice = 0;
 
             if (typeParam === 'product') {
-                const product = productsInbasket[0];
+                const product = productsInBasket[0];
                 minPrice = parseFloat(product.minPrice);
                 maxPrice = parseFloat(product.maxPrice);
                 actualPrice = parseFloat(product.productPrice);
             } else if (typeParam === 'basket') {
-                productsInbasket.forEach(product => {
+                productsInBasket.forEach(product => {
                     minPrice += parseFloat(product.minPrice);
                     maxPrice += parseFloat(product.maxPrice);
                     actualPrice += parseFloat(product.productPrice);
@@ -247,14 +279,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Slider min and max values from minPrice and maxPrice
-            const priceSlider = document.getElementById('price-slider');
-
-            // Convert prices to agorot
+            // Define adjustedMin and adjustedMax based on stepSize
             const minPriceAgorot = Math.round(minPrice * 100);
             const maxPriceAgorot = Math.round(maxPrice * 100);
 
-            // Ensure at least 20 steps
             let stepSize = 10; // 10 agorot steps
             let numSteps = (maxPriceAgorot - minPriceAgorot) / stepSize;
             if (numSteps < 20) {
@@ -262,83 +290,188 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (stepSize === 0) stepSize = 10; // Ensure stepSize is not zero
             }
 
-            // Round min and max to nearest stepSize
             const adjustedMin = Math.floor(minPriceAgorot / stepSize) * stepSize;
             const adjustedMax = Math.ceil(maxPriceAgorot / stepSize) * stepSize;
 
-            priceSlider.min = adjustedMin;
-            priceSlider.max = adjustedMax;
-            priceSlider.step = stepSize;
-            priceSlider.value = Math.round((adjustedMin + adjustedMax) / 2); // Start in the middle
+            // Set initial price to adjustedMin
+            let currentPriceValue = adjustedMin;
 
-            // Ensure slider direction is correct in RTL
-            priceSlider.style.direction = 'ltr';
-
-            // Update confirm button text and price when slider moves
+            // DOM Elements for the confirm button
             const confirmButton = document.getElementById('confirm-button');
             const buttonPriceDisplay = document.getElementById('button-price');
 
-            let currentPriceValue = parseInt(priceSlider.value);
-
+            /**
+             * Function to update the confirm button's price display and background.
+             * @param {number} newValue - The new price value in agorot.
+             */
             function updatePriceDisplays(newValue) {
-                animatePriceChange(currentPriceValue, newValue, 300); // Adjust duration as needed
-                currentPriceValue = newValue;
+                // Update the price display
+                const shekels = Math.floor(newValue / 100);
+                const agorot = newValue % 100;
+                const agorotStr = agorot.toString().padStart(2, '0');
+
+                buttonPriceDisplay.innerHTML = `₪${shekels}<span class="agorot">${agorotStr}</span>`;
+
+                // Update the button's background gradient based on the current value
+                const percentage = ((newValue - adjustedMin) / (adjustedMax - adjustedMin)) * 100;
+                confirmButton.style.background = `linear-gradient(to right, #008000 0%, #008000 ${percentage}%, #48a860 ${percentage}%, #48a860 100%)`;
+
+                // Update the data attribute with the current guessPrice
+                confirmButton.dataset.guessPrice = newValue;
             }
 
-            function animatePriceChange(oldValue, newValue, duration) {
-                const startTime = performance.now();
-                const change = newValue - oldValue;
+            /**
+             * Animates the price from adjustedMin to middle value on page load.
+             * Runs twice as fast by reducing the interval duration.
+             */
+            function animateInitialPrice() {
+                const animationDuration = 750; // Total duration of animation in milliseconds
+                const animationInterval = 10; // Interval between updates in milliseconds (twice as fast)
+                const middleValue = Math.round((adjustedMin + adjustedMax) / 2);
+                const steps = animationDuration / animationInterval;
+                const stepValue = (middleValue - adjustedMin) / steps;
 
-                // Easing function (easeOutCubic)
-                function easeOutCubic(t) {
-                    return 1 - Math.pow(1 - t, 3);
+                let currentValue = adjustedMin;
+                const initialAnimation = setInterval(() => {
+                    if (currentValue < middleValue) {
+                        currentValue += stepValue;
+                        if (currentValue > middleValue) currentValue = middleValue;
+                        updatePriceDisplays(Math.round(currentValue));
+                    } else {
+                        clearInterval(initialAnimation);
+                        currentPriceValue = middleValue; // Set the current value to the middle value
+                    }
+                }, animationInterval);
+            }
+
+            // Initialize button with adjustedMin
+            updatePriceDisplays(currentPriceValue);
+
+            // Start the initial animation
+            animateInitialPrice();
+
+            /**
+             * Variables for dragging
+             */
+            let isDragging = false;
+            let hasDragged = false;
+            let startX = 0;
+
+            /**
+             * Handles the start of dragging.
+             * @param {PointerEvent} e
+             */
+            function handlePointerDown(e) {
+                e.preventDefault(); // Prevent default behavior (like text selection)
+                isDragging = true;
+                hasDragged = false;
+                startX = e.clientX;
+                confirmButton.setPointerCapture(e.pointerId);
+            }
+
+            /**
+             * Handles the movement during dragging.
+             * @param {PointerEvent} e
+             */
+            function handlePointerMove(e) {
+                if (!isDragging) return;
+
+                const rect = confirmButton.getBoundingClientRect();
+                let x = e.clientX - rect.left; // x position within the button
+                const width = rect.width;
+
+                // Calculate the percentage
+                let percentage = x / width;
+                percentage = Math.max(0, Math.min(1, percentage)); // Clamp between 0 and 1
+
+                // Calculate the new price value
+                const newValue = Math.round(adjustedMin + percentage * (adjustedMax - adjustedMin));
+
+                // Check if the pointer has moved enough to consider it a drag
+                if (!hasDragged && Math.abs(e.movementX) > 5) {
+                    hasDragged = true;
                 }
 
-                function animateFrame(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const easedProgress = easeOutCubic(progress);
-                    const currentValue = Math.round(oldValue + change * easedProgress);
+                if (hasDragged) {
+                    // Snap to the nearest stepSize
+                    const snappedValue = Math.round(newValue / stepSize) * stepSize;
+                    const clampedValue = Math.max(adjustedMin, Math.min(adjustedMax, snappedValue));
 
-                    // Update the price display in the button during animation
-                    const shekels = Math.floor(currentValue / 100);
-                    const agorot = currentValue % 100;
-                    const agorotStr = agorot.toString().padStart(2, '0');
-
-                    buttonPriceDisplay.innerHTML = `₪${shekels}<span class="agorot">${agorotStr}</span>`;
-
-                    if (progress < 1) {
-                        requestAnimationFrame(animateFrame);
+                    if (clampedValue !== currentPriceValue) {
+                        updatePriceDisplays(clampedValue);
                     }
                 }
-
-                requestAnimationFrame(animateFrame);
             }
 
-            // Initial display
-            updatePriceDisplays(parseInt(priceSlider.value));
+            /**
+             * Handles the end of dragging.
+             * @param {PointerEvent} e
+             */
+            function handlePointerUp(e) {
+                if (isDragging) {
+                    isDragging = false;
+                    confirmButton.releasePointerCapture(e.pointerId);
+                }
+            }
 
-            priceSlider.addEventListener('input', () => {
-                const newValue = parseInt(priceSlider.value);
-                updatePriceDisplays(newValue);
-            });
-
-            // Update footer using common.js function
-            updateFooter(dateParam, location);
-
-            // Confirm button click handler
+            /**
+             * Handles the click event.
+             * Prevents navigation if a drag occurred; otherwise, proceeds to end.html.
+             * @param {MouseEvent} e
+             */
             confirmButton.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent default action
+                if (hasDragged) {
+                    e.preventDefault(); // Prevent navigation if it was a drag
+                    hasDragged = false;  // Reset the flag
+                } else {
+                    e.preventDefault(); // Prevent default action
 
-                // Get the current price value in agorot
-                const guessPrice = currentPriceValue;
+                    // Get the current price value in agorot from the data attribute
+                    const guessPrice = confirmButton.dataset.guessPrice;
 
-                // Build the URL with parameters, including 'id'
-                const endUrl = `end.html?date=${encodeURIComponent(dateParam)}&type=${encodeURIComponent(typeParam)}&id=${encodeURIComponent(idParam)}&guessPrice=${guessPrice}`;
+                    // Build the URL with parameters, including 'id', 'date', 'type', 'guessPrice'
+                    const endUrl = `end.html?date=${encodeURIComponent(dateParam)}&type=${encodeURIComponent(typeParam)}&id=${encodeURIComponent(idParam)}&guessPrice=${encodeURIComponent(guessPrice)}`;
 
-                // Redirect to end.html with the parameters
-                window.location.href = endUrl;
+                    // Redirect to end.html with the parameters
+                    window.location.href = endUrl;
+                }
             });
+
+            // Attach Pointer Event Listeners for Confirm Button Dragging
+            confirmButton.addEventListener('pointerdown', handlePointerDown);
+            confirmButton.addEventListener('pointermove', handlePointerMove);
+            confirmButton.addEventListener('pointerup', handlePointerUp);
+            confirmButton.addEventListener('pointercancel', handlePointerUp);
+
+            /**
+             * Prevents default drag behavior to avoid unintended issues.
+             * @param {DragEvent} e
+             */
+            confirmButton.addEventListener('dragstart', (e) => {
+                e.preventDefault();
+            });
+
+            /**
+             * Prevent text selection and other default behaviors.
+             */
+            confirmButton.addEventListener('selectstart', (e) => {
+                e.preventDefault();
+            });
+
+            /**
+             * Update footer using common.js function
+             */
+            if (typeof updateFooter === 'function') {
+                updateFooter(dateParam, location);
+            } else {
+                // If updateFooter is not defined, manually create the footer
+                const footer = document.createElement('footer');
+                footer.textContent = 'המחיר נכון להיום, בשופרסל עזריאלי ת״א';
+                footer.style.textAlign = 'center';
+                footer.style.marginTop = '20px';
+                footer.style.fontFamily = 'Rubik, sans-serif';
+                document.body.appendChild(footer);
+            }
         })
         .catch(error => {
             console.error('Error loading data:', error);

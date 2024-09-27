@@ -11,30 +11,27 @@
 	<header class="site-header">
 	    <a href="index.html" class="header-title">כמה עולה?</a>
 	</header>
-    <div class="container">
-        <h1 id="product-title">טוען...</h1>
-        <h3 id="product-subtitle"></h3>
+	<div class="container">
+	    <h1 id="product-title">טוען...</h1>
+	    <h3 id="product-subtitle"></h3>
 
-        <img id="product-image" src="images/placeholder.png" alt="טוען..." class="product-image">
+	    <img id="product-image" src="images/placeholder.png" alt="טוען..." class="product-image">
 
-        <div id="dots-container" class="dots-container"></div>
+	    <div id="dots-container" class="dots-container"></div>
 
-        <!-- Confirm button -->
-        <a id="confirm-button" href="end.html" class="price-button">זה עולה <span id="button-price">₪0<span class="agorot">00</span></span></a>
-		
-	    <!-- Slider container -->
-	    <div class="slider-container">
-	        <input type="range" id="price-slider" min="0" max="100" value="50" step="1">
-	    </div>
-		
-    </div>
+        <!-- Combined Slider and Confirm Button -->
+		<button id="confirm-button" class="price-button" aria-label="Confirm your price guess">
+		    זה עולה <span id="button-price">₪0<span class="agorot">00</span></span>
+		</button>
+	</div>
 
-    <footer>
-        <!-- Footer text will be dynamically inserted by JavaScript -->
-    </footer>
+	<footer>
+	    <!-- Footer text will be dynamically inserted by JavaScript -->
+	</footer>
 
-    <!-- Include common.js and game.js -->
-    <script src="common.js"></script>
-    <script src="game.js"></script>
+	<!-- Include common.js and game.js -->
+	<script src="common.js"></script>
+	<script src="game.js"></script>
+    
 </body>
 </html>

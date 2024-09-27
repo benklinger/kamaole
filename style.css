@@ -10,7 +10,7 @@ body {
     top: 0; /* Position at the top of the viewport */
     width: 100%; /* Full width */
     text-align: center; /* Center-align the content */
-    background-color: #ffffff; /* Green background */
+	background-color: rgba(255, 255, 255, 0.8);
     padding: 10px 0; /* Vertical padding for subtle height */
     z-index: 1000; /* Ensure the header stays above other elements */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
@@ -153,60 +153,9 @@ footer {
 
 hr {
 	margin: 30px 0;
+	border: 1px solid #fff;
 	width: 100%;
-}
-
-/* Slider Container */
-.slider-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 15px 0; /* Added top and bottom padding */
-}
-
-#price-slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 5px;
-    background: #ddd;
-    outline: none;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    transition: background 0.3s ease;
-}
-
-#price-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #2F872A;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-#price-slider::-webkit-slider-thumb:active {
-    transform: scale(1.1);
-}
-
-#price-slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #2F872A;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-#price-slider::-moz-range-thumb:active {
-    transform: scale(1.1);
-}
-
-#price-slider:hover::-webkit-slider-thumb {
-    background: darkgreen;
-}
-
-#price-slider:hover::-moz-range-thumb {
-    background: darkgreen;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
 }
 
 /* Confirm Button */
@@ -309,7 +258,7 @@ footer {
 .dots-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
 .dot {
@@ -325,4 +274,37 @@ footer {
 
 .dot.active {
     background-color: #717171;
+}
+
+/* Price Button Styles */
+.price-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    color: white; /* Text color always white */
+    font-size: 24px;
+    font-family: 'Rubik', sans-serif; /* Apply Rubik font */
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    user-select: none;
+    overflow: hidden;
+    transition: background 0.3s;
+    position: relative;
+    touch-action: none; /* Prevents default touch behaviors to allow custom drag handling */
+    background: #008000; /* Initial background color */
+}
+
+.price-button:active {
+    cursor: grabbing;
+}
+
+.price-button span.agorot {
+    font-size: 0.8em;
+    font-family: 'Rubik', sans-serif; /* Ensure agorot text also uses Rubik font */
+}
+
+.price-button * {
+    pointer-events: none; /* Allows clicks to pass through to the button */
 }
