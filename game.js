@@ -99,24 +99,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show the dots container
                 dotsContainer.style.display = 'flex';
 
-                // Initialize dots for product navigation
-                dotsContainer.innerHTML = '';
-                productsInBasket.forEach((_, index) => {
-                    const dot = document.createElement('span');
-                    dot.classList.add('dot');
-                    if (index === currentProductIndex) {
-                        dot.classList.add('active');
-                    }
-                    dot.addEventListener('click', () => {
-                        if (index === currentProductIndex) return; // Do nothing if the same dot is clicked
+				// Initialize dots for product navigation
+		        dotsContainer.innerHTML = '';
+		        const totalProducts = productsInBasket.length;
+		        for (let index = 0; index < totalProducts; index++) {
+		            const dot = document.createElement('span');
+		            dot.classList.add('dot');
+		            if (index === currentProductIndex) {
+		                dot.classList.add('active');
+		            }
+		            dot.addEventListener('click', () => {
+		                if (index === currentProductIndex) return; // Do nothing if the same dot is clicked
 
-                        const direction = index > currentProductIndex ? 'left' : 'right';
-                        currentProductIndex = index;
-                        updateProductDisplay(direction);
-                        updateDots();
-                    });
-                    dotsContainer.appendChild(dot);
-                });
+		                const direction = index < currentProductIndex ? 'right' : 'left';
+		                currentProductIndex = index;
+		                updateProductDisplay(direction);
+		                updateDots();
+		            });
+		            // Prepend the dot to the container to reverse the order
+		            dotsContainer.insertBefore(dot, dotsContainer.firstChild);
+		        }
 
                 // Preload all images
                 preloadImages(productsInBasket);
@@ -246,15 +248,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 productImage.addEventListener('animationend', onAnimationEnd);
             }
 
-            /**
-             * Update the active state of navigation dots.
-             */
-            function updateDots() {
-                const dots = dotsContainer.getElementsByClassName('dot');
-                for (let i = 0; i < dots.length; i++) {
-                    dots[i].classList.toggle('active', i === currentProductIndex);
-                }
-            }
+	 /**
+	         * Update the active state of navigation dots.
+	         */
+	        function updateDots() {
+	            const dots = dotsContainer.getElementsByClassName('dot');
+	            const totalDots = dots.length;
+	            for (let i = 0; i < totalDots; i++) {
+	                const index = totalDots - 1 - i; // Adjust index since dots are reversed
+	                dots[i].classList.toggle('active', index === currentProductIndex);
+	            }
+	        }
 
             // Get minPrice, maxPrice, and actualPrice
             let minPrice = 0;

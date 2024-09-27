@@ -235,6 +235,42 @@
 			          "products": [3, 2, 4]
 			        }
 			      ]
-			    }
+			    },
+					    "28/09/2024": {
+					      "location": "רמי לוי, תלפיות, ירושלים",
+					      "products": [
+					        {
+					          "id": 1,
+					          "productName": "סנו ז׳אוול, 4 ליטר",
+					          "imageUrl": "images/sanozabel.jpg",
+					          "minPrice": "9.90",
+					          "maxPrice": "19.90",
+					          "productPrice": "15.80"
+					        },
+					        {
+					          "id": 2,
+					          "productName": "קוקה קולה, 1.5 ליטר",
+					          "imageUrl": "images/cocacola.jpg",
+					          "minPrice": "7.00",
+					          "maxPrice": "11.00",
+					          "productPrice": "7.80"
+					        },
+					        {
+					          "id": 3,
+					          "productName": "מנטוס בגליל, 37 גרם",
+					          "imageUrl": "images/mentos.jpg",
+					          "minPrice": "2.90",
+					          "maxPrice": "5.90",
+					          "productPrice": "3.50"
+					        }
+					      ],
+					      "baskets": [
+					        {
+					          "id": 1,
+					          "basketName": "מנטוס וקולה",
+					          "products": [2, 3]
+					        }
+					      ]
+					    }
   }
 }
