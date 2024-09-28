@@ -271,6 +271,58 @@
 					          "products": [2, 3]
 					        }
 					      ]
+					    },
+					    "29/09/2024": {
+					      "location": "חצי חינם, חולון",
+					      "products": [
+					        {
+					          "id": 1,
+					          "productName": "תבלין שווארמה, פרג, 120 גרם",
+					          "imageUrl": "images/shwarmaspice.jpg",
+					          "minPrice": "12.90",
+					          "maxPrice": "18.90",
+					          "productPrice": "15.90"
+					        },
+					        {
+					          "id": 2,
+					          "productName": "ביצים לארג׳, 12 יחידות",
+					          "imageUrl": "images/eggs.jpg",
+					          "minPrice": "9.9",
+					          "maxPrice": "15.90",
+					          "productPrice": "13.90"
+					        },
+					        {
+					          "id": 3,
+					          "productName": "עגבניה, 1 ק״ג",
+					          "imageUrl": "images/tomato.jpg",
+					          "minPrice": "8.00",
+					          "maxPrice": "14.90",
+					          "productPrice": "11.90"
+					        },
+					        {
+					          "id": 4,
+					          "productName": "קוטג׳ 5% תנובה, 250 גרם",
+					          "imageUrl": "images/cottage.jpg",
+					          "minPrice": "3.20",
+					          "maxPrice": "9.00",
+					          "productPrice": "5.90"
+					        },
+					        {
+					          "id": 5,
+					          "productName": "חלה קלועה אנג׳ל, 650 גרם",
+					          "imageUrl": "images/challah.jpg",
+					          "minPrice": "5.00",
+					          "maxPrice": "8.00",
+					          "productPrice": "6.90"
+					        }
+					      ],
+					      "baskets": [
+					        {
+					          "id": 1,
+					          "basketName": "ארוחת ערב ישראלית",
+					          "products": [2, 3, 4, 5]
+					        }
+					      ]
 					    }
   }
 }
