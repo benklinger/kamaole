@@ -323,6 +323,86 @@
 					          "products": [2, 3, 4, 5]
 					        }
 					      ]
-					    }
+					    },
+											    "30/09/2024": {
+											      "location": "רמי לוי, חולון",
+											      "products": [
+											        {
+											          "id": 1,
+											          "productName": "מי עדן שישיה, 1.5 ליטר",
+											          "imageUrl": "images/watersix.jpg",
+											          "minPrice": "9.00",
+											          "maxPrice": "19.90",
+											          "productPrice": "13.80"
+											        },
+											        {
+											          "id": 2,
+											          "productName": "פיתות תנעמי, 10 יחידות",
+											          "imageUrl": "images/pita.jpg",
+											          "minPrice": "8.90",
+											          "maxPrice": "16.90",
+											          "productPrice": "11.90"
+											        },
+											        {
+											          "id": 3,
+											          "productName": "חומוס גלילי אחלה, 600 גרם",
+											          "imageUrl": "images/hummus.jpg",
+											          "minPrice": "8.90",
+											          "maxPrice": "16.90",
+											          "productPrice": "12.80"
+											        }
+											      ],
+											      "baskets": [
+											        {
+											          "id": 1,
+											          "basketName": "דוך או סיבוב",
+											          "products": [3, 2]
+											        }
+											      ]
+											    },
+											    "01/10/2024": {
+											      "location": "רמי לוי, חולון",
+											      "products": [
+											        {
+											          "id": 1,
+											          "productName": "ג׳ל כביסה פרסיל, 2.5 ליטר",
+											          "imageUrl": "images/persil.jpg",
+											          "minPrice": "20.90",
+											          "maxPrice": "37.90",
+											          "productPrice": "27.50"
+											        },
+											        {
+											          "id": 2,
+											          "productName": "שמפו פינוק, 700 מ״ל",
+											          "imageUrl": "images/pinukshampoo.jpg",
+											          "minPrice": "5.9",
+											          "maxPrice": "18.90",
+											          "productPrice": "10.90"
+											        },
+											        {
+											          "id": 3,
+											          "productName": "מרכך פינוק, 700 מ״ל",
+											          "imageUrl": "images/pinukconditioner.jpg",
+											          "minPrice": "5.90",
+											          "maxPrice": "18.90",
+											          "productPrice": "11.90"
+											        },
+											        {
+											          "id": 4,
+											          "productName": "תחליב רחצה פינוק, 700 מ״ל",
+											          "imageUrl": "images/pinuklotion.jpg",
+											          "minPrice": "5.90",
+											          "maxPrice": "18.90",
+											          "productPrice": "10.90"
+											        }
+											      ],
+											      "baskets": [
+											        {
+											          "id": 1,
+											          "basketName": "לשיר במקלחת",
+											          "products": [2, 3, 4]
+											        }
+											      ]
+											    }
   }
 }
