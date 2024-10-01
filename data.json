@@ -403,6 +403,66 @@
 											          "products": [2, 3, 4]
 											        }
 											      ]
+											    },
+											    "02/10/2024": {
+											      "location": "מחסני השוק, באר שבע",
+											      "products": [
+											        {
+											          "id": 1,
+											          "productName": "במבה אסם, 80 גרם",
+											          "imageUrl": "images/bamba.jpg",
+											          "minPrice": "3.90",
+											          "maxPrice": "6.90",
+											          "productPrice": "4.90"
+											        },
+											        {
+											          "id": 2,
+											          "productName": "עגבניה, 1 ק״ג",
+											          "imageUrl": "images/tomato.jpg",
+											          "minPrice": "8.00",
+											          "maxPrice": "14.90",
+											          "productPrice": "10.90"
+											        },
+											        {
+											          "id": 3,
+											          "productName": "פלפל חריף ירוק, 100 גרם",
+											          "imageUrl": "images/greenpepper.jpg",
+											          "minPrice": "0.50",
+											          "maxPrice": "1.00",
+											          "productPrice": "0.70"
+											        },
+											        {
+											          "id": 4,
+											          "productName": "ביצים לארג׳, 12 יחידות",
+											          "imageUrl": "images/eggs.jpg",
+											          "minPrice": "9.9",
+											          "maxPrice": "15.90",
+											          "productPrice": "13.90"
+											        },
+											        {
+											          "id": 5,
+											          "productName": "שום יבש, חבילה",
+											          "imageUrl": "images/garlic.jpg",
+											          "minPrice": "3.90",
+											          "maxPrice": "8.90",
+											          "productPrice": "5.00"
+											        },
+											        {
+											          "id": 6,
+											          "productName": "שמן זית יד מרדכי, 500 מ״ל",
+											          "imageUrl": "images/oliveoil.jpg",
+											          "minPrice": "19.90",
+											          "maxPrice": "39.90",
+											          "productPrice": "34.90"
+											        },
+											      ],
+											      "baskets": [
+											        {
+											          "id": 1,
+											          "basketName": "שקשוקה",
+											          "products": [2, 3, 4, 5, 6]
+											        }
+											      ]
 											    }
   }
 }
